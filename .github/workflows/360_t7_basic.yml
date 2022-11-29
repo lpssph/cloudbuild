@@ -155,7 +155,7 @@ jobs:
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag:=360_t7_basic_$(date +"%Y.%m.%d-%H%M")"
+        echo "release_tag:=360_t7_basic_$(date +"%Y.%m.%d-%H%M")" >>$GITHUB_OUTPUT
         touch release.txt
         echo "360_t7_basic firmware" >> release.txt
         [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer](${{ steps.cowtransfer.outputs.url }})" >> release.txt
