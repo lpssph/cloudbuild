@@ -17,4 +17,4 @@
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
-curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/ipq60xx/index.htm > ./package/addition/autocore/files/arm/index.htm
+#curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/ipq60xx/index.htm > ./package/addition/autocore/files/arm/index.htm
