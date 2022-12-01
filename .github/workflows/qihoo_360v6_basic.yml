@@ -25,7 +25,7 @@ env:
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: ./config/qihoo_360v6/qihoo_360v6_basic.config
   DIY_P1_SH: ./custom/qihoo_360v6/basic/diy-part1.sh
-  DIY_P2_SH: ./custom/qihoo_360v6/basic/diy-part2.sh
+  DIY_P2_SH: ./custom/qihoo_360v6/basic/diy-part3.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
