@@ -21,7 +21,7 @@ on:
 
 env:
   REPO_URL: https://github.com/padavanonly/immortalwrtARM
-  REPO_BRANCH: mt7986
+  REPO_BRANCH: mt7981
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: ./config/cmiot_ax18/360_t7.config
   DIY_P1_SH: ./custom/cmiot_ax18/plus/diy-part1.sh
