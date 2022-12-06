@@ -68,11 +68,11 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: Update path
-      run: |
-        cd openwrt
-        cat target/linux/ipq60xx/files-4.4/arch/arm64/boot/dts/qcom/qcom-ipq6000-cpu-opp.dtsi
-        echo "cpu freq"    
+    #- name: Update path
+      #run: |
+        #cd openwrt
+        #cat target/linux/ipq60xx/files-4.4/arch/arm64/boot/dts/qcom/qcom-ipq6000-cpu-opp.dtsi
+        #echo "cpu freq"    
     
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
