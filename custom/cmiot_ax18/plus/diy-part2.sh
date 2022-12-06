@@ -14,7 +14,7 @@
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
 
 # Modify version
-sed -i 's/R22.11.11/V22.11.11/g' package/addition/default-settings/files/99-default-settings
+#sed -i 's/R22.11.11/V22.11.11/g' package/addition/default-settings/files/99-default-settings
 
 # 修改系统文件
 #curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/ipq60xx/index.htm > ./package/addition/autocore/files/arm/index.htm
