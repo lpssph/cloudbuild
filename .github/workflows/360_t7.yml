@@ -30,8 +30,8 @@ env:
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
-  FILE_NAME: ipq6000
-  PRODUCT_NAME: ipq6000
+  FILE_NAME: mt7981
+  PRODUCT_NAME: mt7981
 
 jobs:
   build:
