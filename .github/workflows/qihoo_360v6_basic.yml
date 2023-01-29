@@ -122,7 +122,7 @@ jobs:
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt/bin/targets/*/*
-        rm -rf packages openwrt-ipq60xx-generic-device-qihoo-360v6.manifest openwrt-ipq60xx-generic-qihoo_360v6-initramfs-fit-uImage.itb
+        rm -rf packages openwrt-ipq60xx-generic-device-qihoo-v6.manifest openwrt-ipq60xx-generic-qihoo_v6-initramfs-fit-uImage.itb
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >>$GITHUB_OUTPUT
 
