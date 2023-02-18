@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: 360_t7_basic
+name: 360_t7_21.02
 
 on:
   repository_dispatch:
