@@ -122,7 +122,7 @@ jobs:
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         cd openwrt/bin/targets/*/*
-        rm -rf packages profiles.json sha256sums version.buildinfo
+        rm -rf packages profiles.json sha256sums version.buildinfo immortalwrt-ipq60xx-generic-cmiot_ax18-initramfs-fit-uImage.itb
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >>$GITHUB_OUTPUT
 
