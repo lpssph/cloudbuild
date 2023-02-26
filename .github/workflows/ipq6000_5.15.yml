@@ -23,7 +23,7 @@ env:
   REPO_URL: https://github.com/sdf8057/openwrt
   REPO_BRANCH: ipq6000
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: pro.config
+  CONFIG_FILE: 5.15.config
   DIY_P1_SH: ./custom/cmiot_ax18/basic/diy-part1.sh
   DIY_P2_SH: ./custom/cmiot_ax18/basic/diy-part2.sh
   UPLOAD_BIN_DIR: false
