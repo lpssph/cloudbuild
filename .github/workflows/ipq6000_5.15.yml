@@ -20,8 +20,8 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/sdf8057/openwrt
-  REPO_BRANCH: ipq6000
+  REPO_URL: https://github.com/sdf8057/immortalwrt
+  REPO_BRANCH: ax18
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: 5.15.config
   DIY_P1_SH: ./custom/cmiot_ax18/basic/diy-part1.sh
