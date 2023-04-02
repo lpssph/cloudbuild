@@ -31,7 +31,7 @@ env:
   UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
   FILE_NAME: mt7981
-  PRODUCT_NAME: mt7981
+  PRODUCT_NAME: 360t7_18.06
 
 jobs:
   build:
