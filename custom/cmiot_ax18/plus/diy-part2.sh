@@ -16,5 +16,12 @@
 # Modify version
 #sed -i 's/R22.11.11/V22.11.11/g' package/addition/default-settings/files/99-default-settings
 
-# 修改系统文件
-#curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt-CI/main/ipq60xx/index.htm > ./package/addition/autocore/files/arm/index.htm
+rm -rf feeds/luci/applications/luci-app-vssr
+rm -rf feeds/luci/applications/luci-app-passwall
+rm -rf feeds/luci/applications/luci-app-openclash
+
+svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
+git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
+git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
+git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
