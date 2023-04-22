@@ -25,4 +25,5 @@ git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 #git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
-#svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-core package/xray-core
+git clone https://github.com/gngpp/luci-theme-design package/luci-theme-design
+git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
