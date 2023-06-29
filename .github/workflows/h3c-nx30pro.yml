@@ -20,8 +20,8 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/sdf8057/immortalwrt-mt798x
-  REPO_BRANCH: h3c
+  REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x.git
+  REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: h3c-nx30pro.config
   DIY_P1_SH: ./custom/cmiot_ax18/basic/diy-part1.sh
