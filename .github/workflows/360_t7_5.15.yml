@@ -21,7 +21,7 @@ on:
 
 env:
   REPO_URL: https://github.com/1715173329/imoutowrt
-  REPO_BRANCH: master-mt7981-t7
+  REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: ./config/cmiot_ax18/360_t7_basic.config
   DIY_P1_SH: ./custom/cmiot_ax18/basic/diy-part1.sh
