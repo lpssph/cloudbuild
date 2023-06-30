@@ -26,7 +26,7 @@ sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")
 sed -i 's/UTC/CST-8/g'  package/base-files/files/bin/config_generate
 
 # 修改主机名 OP
-sed -i 's/ImmortalWrt/OpenWrt/g'  package/base-files/files/bin/config_generate
+#sed -i 's/ImmortalWrt/OpenWrt/g'  package/base-files/files/bin/config_generate
 
 # 时区
 sed -i 's/time1.apple.com/time1.cloud.tencent.com/g'  package/base-files/files/bin/config_generate
