@@ -101,12 +101,6 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    #- name: Update path
-      #run: |
-        #cd openwrt
-        #cat target/linux/ipq60xx/files-4.4/arch/arm64/boot/dts/qcom/qcom-ipq6000-cpu-opp.dtsi
-        #echo "cpu freq"    
-    
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
@@ -157,7 +151,7 @@ jobs:
         tar -zcvf Packages.tar.gz ./*
         cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
         cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
-        rm -rf packages config.buildinfo feeds.buildinfo
+        rm -rf packages config.buildinfo feeds.buildinfo immortalwrt-mediatek-mt7981-mt7981-360-t7-108m.manifest immortalwrt-mediatek-mt7981.manifest profiles.json version.buildinfo sha256sums
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >>$GITHUB_OUTPUT
     
