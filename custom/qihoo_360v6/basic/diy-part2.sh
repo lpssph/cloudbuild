@@ -27,6 +27,7 @@ git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
 git clone https://github.com/0118Add/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
+git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 
 # 修改插件名字
