@@ -18,10 +18,11 @@ sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")
 # 添加删除软件
 rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
-rm -rf feeds/luci/applications/luci-app-ssr-plus
-#rm -rf feeds/luci/applications/luci-app-openclash
+#rm -rf feeds/luci/applications/luci-app-ssr-plus
+rm -rf feeds/luci/applications/luci-app-openclash
 svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 #svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
+svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
