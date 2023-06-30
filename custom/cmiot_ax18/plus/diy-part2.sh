@@ -16,11 +16,11 @@
 # Modify version
 #sed -i 's/R22.11.11/V22.11.11/g' package/addition/default-settings/files/99-default-settings
 
+# 添加删除软件
 rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
 #rm -rf feeds/luci/applications/luci-app-openclash
-
 svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 #svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
@@ -40,7 +40,7 @@ git clone https://github.com/gngpp/luci-app-design-config package/luci-app-desig
 sed -i 's/UTC/CST-8/g'  package/base-files/files/bin/config_generate
 
 # 修改主机名 OP
-sed -i 's/ImmortalWrt/OpenWrt/g'  package/base-files/files/bin/config_generate
+#sed -i 's/ImmortalWrt/OpenWrt/g'  package/base-files/files/bin/config_generate
 
 # 时区
 sed -i 's/time1.apple.com/time1.cloud.tencent.com/g'  package/base-files/files/bin/config_generate
