@@ -13,8 +13,21 @@
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
 
-#sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/extra/autocore/files/generic/index.htm
-#sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/emortal/autocore/files/generic/index.htm
+# 更改固件版本信息
+sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt 21.02'/g" package/base-files/files/etc/openwrt_release
+sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=''/g" package/base-files/files/etc/openwrt_release
+
+# 添加删除软件
+rm -rf feeds/luci/applications/luci-app-vssr
+rm -rf feeds/luci/applications/luci-app-passwall
+rm -rf feeds/luci/applications/luci-app-ssr-plus
+#rm -rf feeds/luci/applications/luci-app-openclash
+svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
+git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
+svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
+#git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
+git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
+#svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 
 # 替换默认主题 luci-theme-argon
 #sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
@@ -26,7 +39,7 @@
 sed -i 's/UTC/CST-8/g'  package/base-files/files/bin/config_generate
 
 # 修改主机名 OP
-#sed -i 's/ImmortalWrt/OpenWrt/g'  package/base-files/files/bin/config_generate
+sed -i 's/ImmortalWrt/OpenWrt/g'  package/base-files/files/bin/config_generate
 
 # 时区
 sed -i 's/time1.apple.com/time1.cloud.tencent.com/g'  package/base-files/files/bin/config_generate
