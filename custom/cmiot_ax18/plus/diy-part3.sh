@@ -10,60 +10,6 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
-VERSION="V3.4"
-
-
-cat > version.patch  <<EOF
---- a/package/base-files/files/etc/banner
-+++ b/package/base-files/files/etc/banner
-@@ -4,5 +4,5 @@
-  |_______||   __|_____|__|__||________||__|  |____|
-           |__| W I R E L E S S   F R E E D O M
-  -----------------------------------------------------
-- %D %V, %C
-+ %D $VERSION By Zan, %C
-  -----------------------------------------------------
-
---- a/package/base-files/files/etc/openwrt_release
-+++ b/package/base-files/files/etc/openwrt_release
-@@ -1,7 +1,7 @@
- DISTRIB_ID='%D'
--DISTRIB_RELEASE='%V'
-+DISTRIB_RELEASE='$VERSION By Zan'
- DISTRIB_REVISION='%R'
- DISTRIB_TARGET='%S'
- DISTRIB_ARCH='%A'
--DISTRIB_DESCRIPTION='%D %V %C'
-+DISTRIB_DESCRIPTION='%D $VERSION By Zan %C'
- DISTRIB_TAINTS='%t'
-
---- a/package/base-files/files/usr/lib/os-release
-+++ b/package/base-files/files/usr/lib/os-release
-@@ -1,8 +1,8 @@
- NAME="%D"
--VERSION="%V"
-+VERSION="$VERSION By Zan"
- ID="%d"
- ID_LIKE="lede openwrt"
--PRETTY_NAME="%D %V"
-+PRETTY_NAME="%D $VERSION By Zan"
- VERSION_ID="%v"
- HOME_URL="%u"
- BUG_URL="%b"
-@@ -15,4 +15,4 @@
- OPENWRT_DEVICE_MANUFACTURER_URL="%m"
- OPENWRT_DEVICE_PRODUCT="%P"
- OPENWRT_DEVICE_REVISION="%h"
--OPENWRT_RELEASE="%D %V %C"
-+OPENWRT_RELEASE="%D $VERSION By Zan %C"
-EOF
-
-patch -p1 -E < version.patch && rm -f version.patch
-for i in $(find -maxdepth 1 -name 'Patch-*.patch' | sed 's#.*/##');do
-	patch -p1 -E < $i
-done
-rm -f Patch-*.patch
-
 sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/emortal/autocore/files/generic/index.htm
 
 # 更改固件版本信息
@@ -83,6 +29,8 @@ git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/openwrt-
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone https://github.com/gngpp/luci-theme-design package/luci-theme-design
 git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
+git clone https://github.com/CHN-beta/rkp-ipid package/rkp-ipid
+git clone https://github.com/Zxilly/UA2F package/UA2F
 
 # name: 替换默认主题 luci-theme-argon
 #sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
