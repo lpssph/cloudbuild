@@ -66,3 +66,6 @@ MT_WIFI(){
 MTK_HNAT
 echo '-------------------------------------------------------------------------------------------------'
 MT_WIFI
+
+./REVISECONFIG.sh tc-tiny kmod-sched kmod-sched-cake kmod-sched-connmark kmod-sched-ipset
+echo '-----------------------------------------------'
