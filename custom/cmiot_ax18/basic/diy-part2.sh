@@ -49,20 +49,3 @@ sed -i 's/pool.ntp.org/cn.pool.ntp.org/g'  package/base-files/files/bin/config_g
 
 # 替换源 
 sed -i 's,mirrors.vsean.net/openwrt,mirrors.pku.edu.cn/immortalwrt,g'  package/emortal/default-settings/files/99-default-settings-chinese
-
-# 
-MTK_HNAT(){
-  rm -rf target/linux/mediatek/files-5.4/drivers/net/ethernet/mediatek/mtk_hnat
-  svn co https://github.com/padavanonly/immortalwrtARM/branches/mt7981/target/linux/mediatek/files-5.4/drivers/net/ethernet/mediatek/mtk_hnat
-  mv mtk_hnat target/linux/mediatek/files-5.4/drivers/net/ethernet/mediatek/mtk_hnat
-}
-
-MT_WIFI(){
-  rm -rf package/mtk/drivers/mt_wifi
-  svn co https://github.com/padavanonly/immortalwrtARM/branches/mt7981/package/mtk/drivers/mt_wifi
-  mv mt_wifi package/mtk/drivers/mt_wifi
-}
-
-MTK_HNAT
-echo '-------------------------------------------------------------------------------------------------'
-MT_WIFI
