@@ -24,6 +24,7 @@ rm -rf feeds/luci/applications/luci-app-ssr-plus
 #rm -rf feeds/luci/applications/luci-app-openclash
 svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
+svn co https://github.com/fw876/helloworld/trunk/tuic-client package/tuic-client
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 #git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
