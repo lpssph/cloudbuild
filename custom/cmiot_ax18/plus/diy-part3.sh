@@ -27,6 +27,7 @@ git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
+git clone https://github.com/sirpdboy/luci-app-eqosplus package/luci-app-eqosplus
 git clone https://github.com/gngpp/luci-theme-design package/luci-theme-design
 git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
 git clone https://github.com/CHN-beta/rkp-ipid package/rkp-ipid
