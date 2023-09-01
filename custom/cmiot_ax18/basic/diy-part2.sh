@@ -26,6 +26,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/l
 git clone https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
 svn co https://github.com/fw876/helloworld/trunk/tuic-client package/tuic-client
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
 #git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone -b luci https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
 #svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
@@ -48,6 +49,9 @@ sed -i 's/time1.apple.com/time1.cloud.tencent.com/g'  package/base-files/files/b
 sed -i 's/time1.google.com/ntp.aliyun.com/g'  package/base-files/files/bin/config_generate
 sed -i 's/time.cloudflare.com/cn.ntp.org.cn/g'  package/base-files/files/bin/config_generate
 sed -i 's/pool.ntp.org/cn.pool.ntp.org/g'  package/base-files/files/bin/config_generate
+
+# 修改权限
+chmod 0755 package/luci-app-bypass/root/etc/init.d/bypass
 
 # 替换源 
 sed -i 's,mirrors.vsean.net/openwrt,mirrors.pku.edu.cn/immortalwrt,g'  package/emortal/default-settings/files/99-default-settings-chinese
