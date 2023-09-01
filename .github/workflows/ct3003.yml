@@ -22,7 +22,7 @@ on:
 env:
   REPO_URL: https://github.com/padavanonly/immortalwrtARM
   REPO_BRANCH: mt7981
-  FEEDS_CONF: feeds.conf.default
+  FEEDS_CONF: custom/cmiot_ax18/18.06.feeds.conf.default
   CONFIG_FILE: ct3003.config
   DIY_P1_SH: ./custom/cmiot_ax18/plus/diy-part1.sh
   DIY_P2_SH: ./custom/cmiot_ax18/plus/diy-part3.sh
