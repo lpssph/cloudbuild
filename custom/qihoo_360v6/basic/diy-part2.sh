@@ -18,6 +18,7 @@ sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")
 rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
+rm -rf feeds/luci/applications/luci-app-serverchan
 #rm -rf feeds/luci/applications/luci-app-openclash
 rm -rf feeds/luci/applications/luci-app-unblockneteasemusic
 svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
