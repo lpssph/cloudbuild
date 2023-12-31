@@ -13,8 +13,8 @@
 sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/emortal/autocore/files/generic/index.htm
 
 # 更改固件版本信息
-sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt 18.06'/g" package/base-files/files/etc/openwrt_release
-sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=''/g" package/base-files/files/etc/openwrt_release
+#sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt 18.06'/g" package/base-files/files/etc/openwrt_release
+#sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=''/g" package/base-files/files/etc/openwrt_release
 
 # 添加删除软件
 rm -rf feeds/luci/applications/luci-app-vssr
@@ -26,8 +26,7 @@ git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
 #svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 #svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/tuic-client package/tuic-client
 #svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/sing-box package/sing-box
-svn co https://github.com/xiaorouji/openwrt-passwall-packages/trunk/sing-box package/sing-box
-svn co https://github.com/xiaorouji/openwrt-passwall-packages/trunk/tuic-client package/tuic-client
+svn export -q https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall-packagest
 svn co https://github.com/0118Add/helloworld/trunk/shadow-tls package/shadow-tls
 svn co https://github.com/0118Add/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
