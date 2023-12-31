@@ -27,7 +27,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/l
 git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
 #svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/tuic-client package/tuic-client
 #svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/sing-box package/sing-box
-svn co https://github.com/xiaorouji/openwrt-passwall-packages/trunk/sing-box package/sing-box
+svn export -q https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall-packages
 svn co https://github.com/0118Add/helloworld/trunk/shadow-tls package/shadow-tls
 svn co https://github.com/0118Add/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
