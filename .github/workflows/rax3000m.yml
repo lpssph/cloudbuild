@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: abt_asr3000
+name: rax3000m
 
 on:
   repository_dispatch:
@@ -23,7 +23,7 @@ env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
   REPO_BRANCH: openwrt-21.02
   FEEDS_CONF: custom/cmiot_ax18/21.02.feeds.conf.default
-  CONFIG_FILE: asr3000.config
+  CONFIG_FILE: rax3000m.config
   DIY_P1_SH: ./custom/cmiot_ax18/basic/diy-part1.sh
   DIY_P2_SH: ./custom/cmiot_ax18/basic/diy-part2.sh
   UPLOAD_BIN_DIR: false
