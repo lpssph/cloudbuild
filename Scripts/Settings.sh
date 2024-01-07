@@ -29,3 +29,4 @@ echo "CONFIG_MTK_MEMORY_SHRINK_AGGRESS=$([[ $WRT_SHRINK == "true" ]] && echo "y"
 
 rm -rf feeds/luci/applications/luci-app-ssr-plus
 rm -rf feeds/luci/applications/luci-app-vssr
+sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/helloworld/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
