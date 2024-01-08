@@ -31,7 +31,7 @@ echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
 echo "CONFIG_MTK_MEMORY_SHRINK=$([[ $WRT_SHRINK == "true" ]] && echo "y" || echo "n")" >> ./.config
 echo "CONFIG_MTK_MEMORY_SHRINK_AGGRESS=$([[ $WRT_SHRINK == "true" ]] && echo "y" || echo "n")" >> ./.config
 
-rm -rf package/helloworld/xray-core
+rm -rf package/helloworld/{hysteria,xray-core}
 rm -rf feeds/packages/net/{hysteria,xray-core,v2ray-core,v2ray-geodata}
 rm -rf package/feeds/packages/mosdns
 rm -rf package/emortal/automount
