@@ -68,8 +68,8 @@ git clone https://github.com/sbwml/openwrt_helloworld package/new/helloworld -b 
 sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/new/helloworld/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 
 # DAED
-git clone https://github.com/sbwml/luci-app-daed package/new/daed
-git clone https://github.com/sbwml/luci-app-daed-next package/new/daed-next
+#git clone https://github.com/sbwml/luci-app-daed package/new/daed
+#git clone https://github.com/sbwml/luci-app-daed-next package/new/daed-next
 
 # immortalwrt homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/new/homeproxy
@@ -162,6 +162,8 @@ cp -rf immortalwrt-luci/applications/luci-app-alist feeds/luci/applications/luci
 ln -sf ../../../feeds/luci/applications/luci-app-alist ./package/feeds/luci/luci-app-alist
 cp -rf immortalwrt-luci/applications/luci-app-ddns-go feeds/luci/applications/luci-app-ddns-go
 ln -sf ../../../feeds/luci/applications/luci-app-ddns-go ./package/feeds/luci/luci-app-ddns-go
+cp -rf immortalwrt-luci/applications/luci-app-daed feeds/luci/applications/luci-app-daed
+ln -sf ../../../feeds/luci/applications/luci-app-daed ./package/feeds/luci/luci-app-daed
 # 克隆immortalwrt-packages仓库
 git clone --depth=1 -b openwrt-23.05 https://github.com/immortalwrt/packages.git immortalwrt-packages
 cp -rf immortalwrt-packages/net/alist feeds/packages/net/alist
@@ -170,3 +172,5 @@ cp -rf immortalwrt-packages/net/ddns-go feeds/packages/net/ddns-go
 ln -sf ../../../feeds/packages/net/ddns-go ./package/feeds/packages/ddns-go
 cp -rf immortalwrt-packages/net/dae feeds/packages/net/dae
 ln -sf ../../../feeds/packages/net/dae ./package/feeds/packages/dae
+cp -rf immortalwrt-packages/net/daed feeds/packages/net/daed
+ln -sf ../../../feeds/packages/net/daed ./package/feeds/packages/daed
