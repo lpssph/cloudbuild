@@ -69,7 +69,7 @@ sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/new/helloworld/luci-app-ssr-pl
 
 # DAED
 git clone https://github.com/sbwml/luci-app-daed package/new/daed
-sed -i 's/DAED/daed/g' package/new/daed/luci-app-daed/po/zh_Hans/daed.po
+sed -i 's/DAED/daed/g' package/new/daed/luci-app-daed/luasrc/controller/daed.lua
 #git clone https://github.com/sbwml/luci-app-daed-next package/new/daed-next
 
 # immortalwrt homeproxy
