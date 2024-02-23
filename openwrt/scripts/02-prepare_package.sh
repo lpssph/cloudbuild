@@ -50,7 +50,7 @@ cp -a ../master/packages/net/haproxy feeds/packages/net/haproxy
 #sed -i 's/0666/0644/g;s/0777/0755/g' feeds/packages/net/samba4/files/smb.conf.template
 
 # autoCore
-git clone https://github.com/sbwml/autocore-arm -b openwrt-23.05 package/new/autocore
+git clone https://github.com/8688Add/autocore-arm -b openwrt-23.05 package/new/autocore
 
 # Aria2 & ariaNG
 #rm -rf feeds/packages/net/ariang
