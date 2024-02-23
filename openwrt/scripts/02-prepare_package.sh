@@ -95,7 +95,7 @@ git clone --single-branch --depth 1 -b dev https://github.com/vernesong/OpenClas
 #git clone https://github.com/sbwml/luci-app-qbittorrent package/new/qbittorrent
 
 # Zerotier
-#git clone https://$gitea/sbwml/luci-app-zerotier package/new/luci-app-zerotier
+git clone https://$gitea/sbwml/luci-app-zerotier package/new/luci-app-zerotier
 
 # 解除网易云音乐播放限制
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/new/luci-app-unblockneteasemusic
