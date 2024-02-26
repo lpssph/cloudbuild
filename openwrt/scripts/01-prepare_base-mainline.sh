@@ -130,6 +130,7 @@ cp -a ../master/openwrt/package/kernel/rtl8812au-ct package/kernel/rtl8812au-ct
 
 # add rtl8812au-ac
 cp -a ../master/mj22226_openwrt/package/kernel/rtl8812au-ac package/kernel/rtl8812au-ac
+sed -i 's/+wifi-scripts //' package/kernel/rtl8812au-ac/Makefile
 
 # ath10k-ct - fix mac80211 6.1-rc
 curl -s https://$mirror/openwrt/patch/openwrt-6.x/kmod-patches/ath10k-ct.patch | patch -p1
