@@ -74,7 +74,8 @@ sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/new/helloworld/luci-app-ssr-pl
 # DAED
 #git clone https://github.com/sbwml/luci-app-daed package/new/daed
 #sed -i 's/DAED/daed/g' package/new/daed/luci-app-daed/luasrc/controller/daed.lua
-git clone https://github.com/sbwml/luci-app-daed-next package/new/daed-next
+git clone https://github.com/sbwml/luci-app-dae package/new/dae
+#git clone https://github.com/sbwml/luci-app-daed-next package/new/daed-next
 
 # immortalwrt homeproxy
 git clone https://github.com/immortalwrt/homeproxy package/new/homeproxy
@@ -178,5 +179,5 @@ cp -rf immortalwrt-packages/net/alist feeds/packages/net/alist
 ln -sf ../../../feeds/packages/net/alist ./package/feeds/packages/alist
 cp -rf immortalwrt-packages/net/ddns-go feeds/packages/net/ddns-go
 ln -sf ../../../feeds/packages/net/ddns-go ./package/feeds/packages/ddns-go
-cp -rf immortalwrt-packages/net/dae feeds/packages/net/dae
-ln -sf ../../../feeds/packages/net/dae ./package/feeds/packages/dae
+#cp -rf immortalwrt-packages/net/dae feeds/packages/net/dae
+#ln -sf ../../../feeds/packages/net/dae ./package/feeds/packages/dae
