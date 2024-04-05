@@ -10,10 +10,34 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
+echo "开始 DIY2 配置……"
+echo "========================="
+
+function merge_package(){
+    repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
+    pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
+    # find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
+    git clone --depth=1 --single-branch $1
+    mv $2 package/custom/
+    rm -rf $repo
+}
+function drop_package(){
+    find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
+}
+function merge_feed(){
+    if [ ! -d "feed/$1" ]; then
+        echo >> feeds.conf.default
+        echo "src-git $1 $2" >> feeds.conf.default
+    fi
+    ./scripts/feeds update $1
+    ./scripts/feeds install -a -p $1
+}
+rm -rf package/custom; mkdir package/custom
+
 sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/emortal/autocore/files/generic/index.htm
 
 # Modify default IP
-sed -i 's/192.168.1.1/10.0.0.10/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 
 # 更改固件版本信息
 #sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt 18.06'/g" package/base-files/files/etc/openwrt_release
@@ -24,24 +48,27 @@ rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
 #rm -rf feeds/luci/applications/luci-app-openclash
-svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
-git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
-#svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
-#svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/tuic-client package/tuic-client
-#svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/sing-box package/sing-box
-svn export -q https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall-packagest
-svn co https://github.com/0118Add/helloworld/trunk/shadow-tls package/shadow-tls
-svn co https://github.com/0118Add/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
-git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
-git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
-#git clone https://github.com/sirpdboy/luci-app-eqosplus package/luci-app-eqosplus
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
+#git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/tuic-client
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/chinadns-ng
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/hysteria
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/shadowsocksr-libev
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/v2ray-core
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/v2ray-geodata
+merge_package https://github.com/0118Add/helloworld helloworld/shadowsocks-rust
+merge_package https://github.com/0118Add/helloworld helloworld/xray-core
+merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
+merge_package https://github.com/0118Add/helloworld helloworld/luci-app-ssr-plus
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
+#git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone https://github.com/gngpp/luci-theme-design package/luci-theme-design
 git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
-git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
+#git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
 git clone https://github.com/CHN-beta/rkp-ipid package/rkp-ipid
 git clone https://github.com/Zxilly/UA2F package/UA2F
-sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
+sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 
 # name: 替换默认主题 luci-theme-argon
 #sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
