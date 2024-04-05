@@ -47,16 +47,23 @@ rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
 rm -rf feeds/luci/applications/luci-app-qbittorrent
 #rm -rf feeds/luci/applications/luci-app-openclash
+rm -rf feeds/packages/net/{hysteria,xray-core,v2ray-core,v2ray-geodata,sing-box}
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
 #git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
 merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
 merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/tuic-client
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/chinadns-ng
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/hysteria
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/shadowsocksr-libev
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/v2ray-core
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/v2ray-geodata
+merge_package https://github.com/0118Add/helloworld helloworld/shadowsocks-rust
+merge_package https://github.com/0118Add/helloworld helloworld/xray-core
 merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
 merge_package https://github.com/0118Add/helloworld helloworld/luci-app-ssr-plus
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
 #git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
-#svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 
 # 替换默认主题 luci-theme-argon
@@ -78,7 +85,7 @@ sed -i 's/time.cloudflare.com/cn.ntp.org.cn/g'  package/base-files/files/bin/con
 sed -i 's/pool.ntp.org/cn.pool.ntp.org/g'  package/base-files/files/bin/config_generate
 
 # 修改权限
-chmod 0755 package/luci-app-bypass/root/etc/init.d/bypass
+chmod 0755 package/custom/luci-app-bypass/root/etc/init.d/bypass
 
 # 替换源 
 sed -i 's,mirrors.vsean.net/openwrt,mirrors.pku.edu.cn/immortalwrt,g'  package/emortal/default-settings/files/99-default-settings-chinese
