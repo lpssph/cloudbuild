@@ -10,8 +10,32 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
+echo "开始 DIY2 配置……"
+echo "========================="
+
+function merge_package(){
+    repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
+    pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
+    # find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
+    git clone --depth=1 --single-branch $1
+    mv $2 package/custom/
+    rm -rf $repo
+}
+function drop_package(){
+    find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
+}
+function merge_feed(){
+    if [ ! -d "feed/$1" ]; then
+        echo >> feeds.conf.default
+        echo "src-git $1 $2" >> feeds.conf.default
+    fi
+    ./scripts/feeds update $1
+    ./scripts/feeds install -a -p $1
+}
+rm -rf package/custom; mkdir package/custom
+
 # Modify default IP
-sed -i 's/192.168.1.1/10.0.0.10/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 
 # 更改固件版本信息
 #sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt 21.02'/g" package/base-files/files/etc/openwrt_release
@@ -23,18 +47,17 @@ rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
 rm -rf feeds/luci/applications/luci-app-qbittorrent
 #rm -rf feeds/luci/applications/luci-app-openclash
-svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/lua-maxminddb
-git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
-#svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/tuic-client package/tuic-client
-#svn co https://github.com/xiaorouji/openwrt-passwall/branches/packages/sing-box package/sing-box
-svn export -q https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall-packages
-svn co https://github.com/0118Add/helloworld/trunk/shadow-tls package/shadow-tls
-svn co https://github.com/0118Add/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-bypass package/luci-app-bypass
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
+#git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/tuic-client
+merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
+merge_package https://github.com/0118Add/helloworld helloworld/luci-app-ssr-plus
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
 #git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
 #svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
-sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
+sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 
 # 替换默认主题 luci-theme-argon
 #sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
