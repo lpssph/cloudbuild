@@ -10,7 +10,7 @@
 # Description: OpenWrt DIY script part 2 (After Update feeds)
 #
 
-echo "开始 DIY2 配置……"
+echo "开始配置……"
 echo "========================="
 
 function merge_package(){
@@ -40,7 +40,7 @@ sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " 
 
 # 添加删除软件
 rm -rf package/net/{xray-core,smartdns,shadowsocks-rust,hysteria,chinadns-ng}
-rm -rf package/openwrt-helloworld/{luci-app-homeproxy}
+rm -rf package/openwrt-helloworld/luci-app-homeproxy
 rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
