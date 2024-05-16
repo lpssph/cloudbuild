@@ -47,6 +47,7 @@ rm -rf feeds/luci/applications/luci-app-smartdns
 #rm -rf feeds/luci/applications/luci-app-openclash
 rm -rf feeds/luci/applications/luci-app-unblockneteasemusic
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
 git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
 git clone --depth=1 -b dev https://github.com/vernesong/OpenClash package/luci-app-openclash
 git clone https://github.com/firkerword/openwrt-helloworld package/openwrt-helloworld
@@ -55,7 +56,7 @@ git clone https://github.com/firkerword/openwrt-helloworld package/openwrt-hello
 #merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
 #merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
 #merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/tuic-client
-git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
+#git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 #git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
 git clone -b master https://github.com/0118Add/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
 git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
