@@ -53,6 +53,7 @@ git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
 git clone --depth=1 -b dev https://github.com/vernesong/OpenClash package/luci-app-openclash
 #git clone https://github.com/firkerword/openwrt-helloworld package/openwrt-helloworld
 merge_package https://github.com/firkerword/openwrt-helloworld openwrt-helloworld/smartdns
+merge_package https://github.com/firkerword/openwrt-helloworld openwrt-helloworld/luci-app-smartdns
 merge_package https://github.com/firkerword/openwrt-helloworld openwrt-helloworld/luci-app-passwall
 merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
 merge_package https://github.com/0118Add/helloworld helloworld/xray-core
