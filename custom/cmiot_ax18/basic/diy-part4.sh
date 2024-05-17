@@ -39,7 +39,7 @@ rm -rf package/custom; mkdir package/custom
 sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/extra/autocore/files/generic/index.htm
 
 # 添加删除软件
-rm -rf feeds/packages/net/{xray-core}
+rm -rf feeds/packages/net/{xray-core,smartdns}
 rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
