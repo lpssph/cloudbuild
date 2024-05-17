@@ -39,7 +39,7 @@ rm -rf package/custom; mkdir package/custom
 sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/extra/autocore/files/generic/index.htm
 
 # 添加删除软件
-rm -rf feeds/packages/net/{xray-core,smartdns}
+rm -rf feeds/packages/net/{xray-core,smartdns,sing-box,hysteria}
 rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
@@ -55,10 +55,11 @@ git clone --depth=1 -b dev https://github.com/vernesong/OpenClash package/luci-a
 merge_package https://github.com/firkerword/openwrt-helloworld openwrt-helloworld/smartdns
 merge_package https://github.com/firkerword/openwrt-helloworld openwrt-helloworld/luci-app-smartdns
 merge_package https://github.com/firkerword/openwrt-helloworld openwrt-helloworld/luci-app-passwall
-merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
-merge_package https://github.com/0118Add/helloworld helloworld/xray-core
-merge_package https://github.com/0118Add/helloworld helloworld/luci-app-ssr-plus
-#merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
+merge_package https://github.com/fw876/helloworld helloworld/hysteria
+merge_package https://github.com/fw876/helloworld helloworld/shadow-tls
+merge_package https://github.com/fw876/helloworld helloworld/xray-core
+merge_package https://github.com/fw876/helloworld helloworld/luci-app-ssr-plus
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
 merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/tuic-client
 #git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 #git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
