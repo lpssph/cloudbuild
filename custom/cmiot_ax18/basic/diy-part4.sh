@@ -39,7 +39,7 @@ rm -rf package/custom; mkdir package/custom
 sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/extra/autocore/files/generic/index.htm
 
 # 添加删除软件
-rm -rf feeds/packages/net/{xray-core,smartdns,shadowsocks-rust,hysteria,chinadns-ng}
+rm -rf feeds/packages/net/{xray-core,shadowsocks-rust,hysteria,chinadns-ng}
 rm -rf package/openwrt-helloworld/luci-app-homeproxy
 rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
@@ -52,19 +52,20 @@ merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-m
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
 git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
 git clone --depth=1 -b dev https://github.com/vernesong/OpenClash package/luci-app-openclash
-git clone https://github.com/firkerword/openwrt-helloworld package/openwrt-helloworld
-#merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
-#merge_package https://github.com/0118Add/helloworld helloworld/luci-app-ssr-plus
+#git clone https://github.com/firkerword/openwrt-helloworld package/openwrt-helloworld
+merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
+merge_package https://github.com/0118Add/helloworld helloworld/luci-app-ssr-plus
 #merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
 #merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
 #merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/tuic-client
 #git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 #git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
 git clone -b master https://github.com/0118Add/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
 git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
 git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
 
 # 修改插件名字
-sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/openwrt-helloworld/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
+sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/helloworld/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 sed -i 's/解除网易云音乐播放限制/音乐解锁/g' package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
 #sed -i 's/Frp 内网穿透/内网穿透/g' feeds/luci/applications/luci-app-frpc/po/zh-cn/frp.po
