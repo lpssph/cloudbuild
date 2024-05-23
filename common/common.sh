@@ -26,7 +26,7 @@ Compte=$(date +%Y年%m月%d号%H时%M分)
 
 function settings_variable() {
 cd ${GITHUB_WORKSPACE}
-bash <(curl -fsSL https://raw.githubusercontent.com/shidahuilang/common/main/custom/first.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/0118Add/CloudBuild/main/common/custom/first.sh)
 }
 
 function Diy_variable() {
