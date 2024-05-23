@@ -9,7 +9,7 @@ cd ${GITHUB_WORKSPACE}
 if [[ -n "${BENDI_VERSION}" ]]; then
   sudo rm -rf build common.sh
 else
-  sudo rm -rf build/common && git clone -b main --depth 1 https://github.com/shidahuilang/common build/common
+  sudo rm -rf build/common && git clone -b main --depth 1 https://github.com/0118Add/CloudBuild/tree/main/common build/common
   cp -Rf build/common/*.sh build/${FOLDER_NAME}/
   cp -Rf build/common/common.sh build/${FOLDER_NAME}/common.sh
   cp -Rf build/common/upgrade.sh build/${FOLDER_NAME}/upgrade.sh
