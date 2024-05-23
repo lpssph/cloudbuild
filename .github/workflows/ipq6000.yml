@@ -14,7 +14,7 @@ env:
   REPO_URL: https://github.com/8688Add/ipq6000.git
   REPO_BRANCH: main
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: pro.config
+  CONFIG_FILE: config/pro.config
   DIY_P1_SH: ./custom/cmiot_ax18/basic/diy-part1.sh
   DIY_P2_SH: ./custom/cmiot_ax18/basic/diy-part4.sh
   UPLOAD_BIN_DIR: false
