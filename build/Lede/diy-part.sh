@@ -64,11 +64,84 @@ export Disable_autosamba="0"                 # 去掉源码默认自选的luci-a
 # 手动更换默认主题
 # uci set luci.main.mediaurlbase='/luci-static/neobird' && uci commit luci
 
+function merge_package(){
+    repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
+    pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
+    # find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
+    git clone --depth=1 --single-branch $1
+    mv $2 package/custom/
+    rm -rf $repo
+}
+function drop_package(){
+    find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
+}
+function merge_feed(){
+    if [ ! -d "feed/$1" ]; then
+        echo >> feeds.conf.default
+        echo "src-git $1 $2" >> feeds.conf.default
+    fi
+    ./scripts/feeds update $1
+    ./scripts/feeds install -a -p $1
+}
+rm -rf package/custom; mkdir package/custom
 
+# 替换文件
+wget -O ./package/kernel/linux/modules/netsupport.mk https://raw.githubusercontent.com/0118Add/X86-N1-Actions/main/general/netsupport.mk
 
-#rm -rf feeds/packages/lang/golang
-#git clone https://github.com/sbwml/packages_lang_golang -b 21.x feeds/packages/lang/golang
+# 修改系统文件
+curl -fsSL https://raw.githubusercontent.com/0118Add/N1-Actions-Dabao56/master/backup/index.htm > ./package/lean/autocore/files/x86/index.htm
+curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/scripts/autocore > ./package/lean/autocore/files/x86/autocore
+curl -fsSL https://raw.githubusercontent.com/0118Add/OpenWrt/main/images/cpuinfo > ./package/lean/autocore/files/x86/sbin/cpuinfo
 
+# 修改概览里时间显示为中文数字
+sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/lean/autocore/files/x86/index.htm
+
+# x86 型号只显示 CPU 型号
+sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/autocore
+
+# 修改连接数
+sed -i 's/net.netfilter.nf_conntrack_max=.*/net.netfilter.nf_conntrack_max=65535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
+# 修正连接数
+sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
+
+# node - prebuilt
+rm -rf feeds/packages/lang/node
+git clone https://github.com/8688Add/feeds_packages_lang_node feeds/packages/lang/node
+
+# 移除重复软件包
+rm -rf feeds/packages/net/mosdns
+rm -rf feeds/luci/applications/luci-app-mosdns
+rm -rf feeds/luci/applications/luci-app-serverchan
+
+# 添加额外软件包
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/dae
+git clone https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
+git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
+#merge_package https://github.com/0118Add/openwrt-packages openwrt-packages/luci-app-bypass
+git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
+#merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
+git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
+#git clone https://github.com/fw876/helloworld.git package/helloworld
+merge_package https://github.com/fw876/helloworld helloworld/luci-app-ssr-plus
+merge_package https://github.com/fw876/helloworld helloworld/lua-neturl
+merge_package https://github.com/fw876/helloworld helloworld/mosdns
+merge_package https://github.com/fw876/helloworld helloworld/shadow-tls
+merge_package https://github.com/fw876/helloworld helloworld/redsocks2
+#git clone https://github.com/xiaorouji/openwrt-passwall2 package/passwall2
+git clone https://github.com/QiuSimons/luci-app-daed-next package/luci-app-daed-next
+git clone https://github.com/8688Add/luci-theme-argon-dark-mod.git package/luci-theme-argon-dark-mod
+git clone https://github.com/justice2001/luci-app-multi-frpc package/luci-app-multi-frpc
+git clone -b dev --depth 1 https://github.com/vernesong/OpenClash package/luci-app-openclash
+git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
+git clone https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
+git clone https://github.com/sirpdboy/luci-app-partexp package/luci-app-partexp
+git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
+git clone -b master https://github.com/0118Add/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
+#git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
+rm -rf feeds/luci/themes/luci-theme-argon
+rm -rf feeds/luci/themes/luci-theme-design
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+git clone https://github.com/gngpp/luci-theme-design package/luci-theme-design
 # 其他
 export Ttyd_account_free_login="0"           # 设置ttyd免密登录(1为启用命令,填0为不作修改)
 export Delete_unnecessary_items="0"          # 个别机型内一堆其他机型固件,删除其他机型的,只保留当前主机型固件(1为启用命令,填0为不作修改)
@@ -84,20 +157,15 @@ export rootfs_size="2560"
 export kernel_usage="stable"
 
 
-
-
 # 修改插件名字
-#sed -i 's/"aMule设置"/"电驴下载"/g' `egrep "aMule设置" -rl ./`
-#sed -i 's/"网络存储"/"NAS"/g' `egrep "网络存储" -rl ./`
-#sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `egrep "Turbo ACC 网络加速" -rl ./`
-#sed -i 's/"实时流量监测"/"流量"/g' `egrep "实时流量监测" -rl ./`
-#sed -i 's/"KMS 服务器"/"KMS激活"/g' `egrep "KMS 服务器" -rl ./`
-#sed -i 's/"TTYD 终端"/"TTYD"/g' `egrep "TTYD 终端" -rl ./`
-#sed -i 's/"USB 打印服务器"/"打印服务"/g' `egrep "USB 打印服务器" -rl ./`
-#sed -i 's/"Web 管理"/"Web管理"/g' `egrep "Web 管理" -rl ./`
-#sed -i 's/"管理权"/"改密码"/g' `egrep "管理权" -rl ./`
-#sed -i 's/"带宽监控"/"监控"/g' `egrep "带宽监控" -rl ./`
-#sed -i 's/"设置向导"/"向导"/g' `egrep "设置向导" -rl ./`
+sed -i 's/Argon 主题设置/Argon设置/g' feeds/luci/applications/luci-app-argon-config/po/zh-cn/argon-config.po
+sed -i 's/Design 主题设置/Design设置/g' feeds/luci/applications/luci-app-design-config/po/zh-cn/design-config.po
+sed -i 's/一键分区扩容/分区扩容/g' package/luci-app-partexp/po/zh-cn/partexp.po
+sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
+sed -i 's/Frpc内网穿透/内网穿透/g' package/luci-app-multi-frpc/po/zh-cn/frp.po
+sed -i 's/解除网易云音乐播放限制/音乐解锁/g' package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
+sed -i 's/WireGuard 状态/WiGd状态/g' feeds/luci/applications/luci-app-wireguard/po/zh-cn/wireguard.po
+sed -i 's/Turbo ACC 网络加速/网络加速/g' feeds/luci/applications/luci-app-turboacc/po/zh-cn/turboacc.po
 
 
 # 整理固件包时候,删除您不想要的固件或者文件,让它不需要上传到Actions空间(根据编译机型变化,自行调整删除名称)
