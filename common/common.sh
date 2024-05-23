@@ -249,7 +249,7 @@ fi
 
 
 function Diy_update() {
-bash <(curl -fsSL https://raw.githubusercontent.com/shidahuilang/common/main/custom/ubuntu.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/0118Add/CloudBuild/main/common/custom/ubuntu.sh)
 if [[ $? -ne 0 ]];then
   TIME r "依赖安装失败，请检测网络后再次尝试!"
   exit 1
@@ -288,8 +288,8 @@ mv -f uniq.conf feeds.conf.default
 
 # 这里增加了源,要对应的删除/etc/opkg/distfeeds.conf插件源
 cat >>"feeds.conf.default" <<-EOF
-src-git langge1 https://github.com/shidahuilang/openwrt-package.git;${SOURCE}
-src-git helloworld https://github.com/fw876/helloworld.git
+#src-git langge1 https://github.com/shidahuilang/openwrt-package.git;${SOURCE}
+#src-git helloworld https://github.com/fw876/helloworld.git
 src-git passwall3 https://github.com/xiaorouji/openwrt-passwall-packages;main
 EOF
 ./scripts/feeds update -a
