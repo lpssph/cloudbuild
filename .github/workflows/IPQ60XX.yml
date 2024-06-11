@@ -23,7 +23,7 @@ env:
   REPO_URL: https://github.com/breeze303/openwrt
   REPO_BRANCH: main
   CONFIG_FILE: config/IPQ60XX.config
-  DIY_SCRIPT: custom/IPQ60XX/diy-part02.sh
+  DIY_SCRIPT: custom/IPQ60XX/diy-part2.sh
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: false
   UPLOAD_BIN_DIR: false
