@@ -36,7 +36,6 @@ rm -rf package/custom; mkdir package/custom
 
 # Modify default IP
 #sed -i 's/192.168.1.1/192.168.50.5/g' package/base-files/files/bin/config_generate
-sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/extra/autocore/files/generic/index.htm
 
 # 添加删除软件
 rm -rf feeds/luci/applications/luci-app-vssr
@@ -55,11 +54,11 @@ merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-pas
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
 git clone -b master https://github.com/0118Add/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
-git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
-git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
+#git clone https://github.com/gngpp/luci-app-design-config package/luci-app-design-config
+#git clone -b openwrt-18.06 https://github.com/tty228/luci-app-wechatpush package/luci-app-wechatpush
 
 # 修改插件名字
-sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
+#sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 sed -i 's/解除网易云音乐播放限制/音乐解锁/g' package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
 #sed -i 's/Frp 内网穿透/内网穿透/g' feeds/luci/applications/luci-app-frpc/po/zh-cn/frp.po
 
