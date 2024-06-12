@@ -44,11 +44,12 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 #sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION=''/g" package/base-files/files/etc/openwrt_release
 
 # 添加删除软件
-rm -rf feeds/luci/applications/luci-app-vssr
+rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
 #rm -rf feeds/luci/applications/luci-app-openclash
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-smartdns
 #git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
 git clone --depth=1 -b luci-smartdns-dev https://github.com/xiaorouji/openwrt-passwall package/passwall
 merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
