@@ -54,27 +54,27 @@ rm -rf feeds/packages/net/{chinadns-ng,hysteria,xray-core,v2ray-core,v2ray-geoda
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-smartdns
 #git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
-merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
-merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/tuic-client
-merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/chinadns-ng
-merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/hysteria
-merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/shadowsocksr-libev
-merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/v2ray-core
-merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/v2ray-geodata
-merge_package https://github.com/0118Add/helloworld helloworld/shadowsocks-rust
-merge_package https://github.com/0118Add/helloworld helloworld/xray-core
-merge_package https://github.com/0118Add/helloworld helloworld/shadow-tls
-merge_package https://github.com/0118Add/helloworld helloworld/luci-app-ssr-plus
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/sing-box
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/tuic-client
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/chinadns-ng
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/hysteria
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/shadowsocksr-libev
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/v2ray-core
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/v2ray-geodata
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/shadowsocks-rust
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/xray-core
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/shadow-tls
+merge_package https://github.com/sbwml/openwrt_helloworld openwrt_helloworld/luci-app-ssr-plus
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-bypass
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone https://github.com/xiaorouji/openwrt-passwall package/openwrt-passwall
 sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 
+# 去掉ssr+中shadowsocksr-libev的libopenssl-legacy依赖支持
+sed -i 's/ +libopenssl-legacy//g' package/custom/shadowsocksr-libev/Makefile
+
 # 替换默认主题 luci-theme-argon
 #sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
-
-# 默认ip 192.168.1.1
-#sed -i 's/192.168.[0-9]\{1,3\}.1/192.168.1.1/g' package/base-files/files/bin/config_generate
 
 # 修改时区 UTF-8
 sed -i 's/UTC/CST-8/g'  package/base-files/files/bin/config_generate
