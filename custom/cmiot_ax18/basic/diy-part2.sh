@@ -46,6 +46,7 @@ rm -rf feeds/luci/applications/luci-app-vssr
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
 rm -rf feeds/luci/applications/luci-app-smartdns
+rm -rf feeds/luci/applications/luci-app-qbittorrent
 #rm -rf feeds/luci/applications/luci-app-openclash
 rm -rf feeds/packages/net/{chinadns-ng,hysteria,xray-core,v2ray-core,v2ray-geodata,sing-box,shadowsocks-rust,shadowsocksr-libev}
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
