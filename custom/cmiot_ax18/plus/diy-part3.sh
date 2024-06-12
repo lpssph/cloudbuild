@@ -45,6 +45,8 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 
 # 添加删除软件
 rm -rf feeds/packages/net/{chinadns-ng,hysteria,xray-core,v2ray-core,v2ray-geodata,sing-box,shadowsocks-rust,shadowsocksr-libev}
+rm -rf package/feeds/packages/frp
+rm -rf package/feeds/packages/strongswan
 rm -rf feeds/luci/applications/luci-app-smartdns
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-ssr-plus
@@ -73,11 +75,11 @@ git clone https://github.com/CHN-beta/rkp-ipid package/rkp-ipid
 git clone https://github.com/Zxilly/UA2F package/UA2F
 sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/custom/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
 
-# name: 替换默认主题 luci-theme-argon
-#sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
+# 去掉ssr+中shadowsocksr-libev的libopenssl-legacy依赖支持
+sed -i 's/ +libopenssl-legacy//g' package/custom/shadowsocksr-libev/Makefile
 
-# 默认ip 192.168.1.1
-#sed -i 's/192.168.[0-9]\{1,3\}.1/192.168.1.1/g' package/base-files/files/bin/config_generate
+# 替换默认主题 luci-theme-argon
+#sed -i 's/luci-theme-bootstrap/luci-theme-argon/' feeds/luci/collections/luci/Makefile
 
 # 修改时区 UTF-8
 sed -i 's/UTC/CST-8/g'  package/base-files/files/bin/config_generate
