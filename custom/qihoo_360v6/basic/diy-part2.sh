@@ -36,6 +36,7 @@ rm -rf package/custom; mkdir package/custom
 
 # Modify default IP
 sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
+sed -i "s/DISTRIB_REVISION='*.*'/DISTRIB_REVISION='R23.1.1'/g" package/lean/default-settings/files/zzz-default-settings
 sed -i 's/os.date()/os.date("%Y-%m-%d") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/extra/autocore/files/generic/index.htm
 
 # 添加删除软件
