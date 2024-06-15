@@ -21,7 +21,7 @@ on:
 
 env:
   REPO_URL: https://github.com/qosmio/openwrt-ipq
-  REPO_BRANCH: main
+  REPO_BRANCH: qualcommax-6.x-nss-wifi
   CONFIG_FILE: config/ipq807x-wifi.config
   PATCHES_FILE_1: patches/0001-show-soc-status-on-luci.patch
   DIY_SCRIPT: custom/diy-script.sh
