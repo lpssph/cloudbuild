@@ -23,7 +23,7 @@ env:
   REPO_URL: https://github.com/qosmio/openwrt-ipq
   REPO_BRANCH: qualcommax-6.x-nss-wifi
   CONFIG_FILE: config/ipq807x-wifi.config
-  DIY_SCRIPT: custom/diy-script.sh
+  DIY_SCRIPT: custom/IPQ807X/diy-script.sh
   CLASH_KERNEL: amd64
   CACHE_TOOLCHAIN: false
   UPLOAD_BIN_DIR: false
