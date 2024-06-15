@@ -41,13 +41,12 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 rm -rf feeds/luci/applications/luci-app-passwall
 rm -rf feeds/luci/applications/luci-app-openclash
 rm -rf feeds/luci/applications/luci-app-unblockneteasemusic
-merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/lua-maxminddb
-merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/smartdns
-merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-smartdns
 git clone --depth=1 -b dev https://github.com/vernesong/OpenClash package/luci-app-openclash
 git clone --depth=1 -b luci-smartdns-dev https://github.com/xiaorouji/openwrt-passwall package/passwall
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/passwall-packages
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
+git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
+git clone https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic package/luci-app-unblockneteasemusic
 
 # 修改插件名字
