@@ -168,10 +168,10 @@ jobs:
       continue-on-error: true
       uses: sbwml/release-action@main
       with:
-        name: OpenWrt-${{ env.latest_release }}
+        name: OpenWRT-${{ env.latest_release }}
         allowUpdates: true
         tag: ${{ env.latest_release }}
-        body: OpenWrt 23.05 with Kernel 6.6 Enhanced
+        body: OpenWRT 23.05 with Kernel 6.6 Enhanced
         commit: master
         replacesArtifacts: true
         token: ${{ secrets.GITHUB_TOKEN }}
