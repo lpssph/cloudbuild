@@ -262,14 +262,12 @@ curl -sO https://$mirror/openwrt/scripts/99_clean_build_cache.sh
 chmod 0755 *sh
 [ "$(whoami)" = "runner" ] && group "patching openwrt"
 bash 00-prepare_base.sh
+bash 01-prepare_base-mainline.sh
 bash 02-prepare_package.sh
 bash 03-convert_translation.sh
+bash 04-fix_kmod.sh
 bash 05-fix-source.sh
 bash 10-customize-config.sh
-if [ "$platform" = "rk3568" ] || [ "$platform" = "rk3399" ] || [ "$platform" = "x86_64" ] || [ "$platform" = "bcm53xx" ] || [ "$platform" = "armv8" ]; then
-    bash 01-prepare_base-mainline.sh
-    bash 04-fix_kmod.sh
-fi
 [ "$(whoami)" = "runner" ] && endgroup
 
 if [ "$USE_GCC14" = "y" ] || [ "$USE_GCC15" = "y" ]; then
@@ -456,7 +454,7 @@ if [ "$platform" = "x86_64" ]; then
     {
       "build_date": "$CURRENT_DATE",
       "sha256sum": "$SHA256",
-      "url": "https://github.com/sbwml/builder/releases/download/v$VERSION/openwrt-$VERSION-x86-64-generic-squashfs-combined-efi.img.gz"
+      "url": "https://x86.cooluc.com/d/$BUILD_TYPE/openwrt-23.05/v$VERSION/openwrt-$VERSION-x86-64-generic-squashfs-combined-efi.img.gz"
     }
   ]
 }
@@ -540,7 +538,7 @@ elif [ "$platform" = "bcm53xx" ]; then
     {
       "build_date": "$CURRENT_DATE",
       "sha256sum": "$SHA256",
-      "url": "https://github.com/sbwml/builder/releases/download/v$VERSION/openwrt-$VERSION-bcm53xx-generic-netgear_r8500-squashfs.chk"
+      "url": "https://r8500.cooluc.com/d/$BUILD_TYPE/openwrt-23.05/v$VERSION/openwrt-$VERSION-bcm53xx-generic-netgear_r8500-squashfs.chk"
     }
   ]
 }
@@ -583,7 +581,7 @@ else
     {
       "build_date": "$CURRENT_DATE",
       "sha256sum": "$SHA256",
-      "url": "https://github.com/sbwml/builder/releases/download/v$VERSION/v$VERSION/openwrt-$VERSION-rockchip-armv8-friendlyarm_nanopi-r4s-squashfs-sysupgrade.img.gz"
+      "url": "https://r4s.cooluc.com/d/$BUILD_TYPE/openwrt-23.05/v$VERSION/openwrt-$VERSION-rockchip-armv8-friendlyarm_nanopi-r4s-squashfs-sysupgrade.img.gz"
     }
   ]
 }
@@ -597,14 +595,14 @@ EOF
     {
       "build_date": "$CURRENT_DATE",
       "sha256sum": "$SHA256_R5C",
-      "url": "https://github.com/sbwml/builder/releases/download/v$VERSION/openwrt-$VERSION-rockchip-armv8-friendlyarm_nanopi-r5c-squashfs-sysupgrade.img.gz"
+      "url": "https://r5s.cooluc.com/d/$BUILD_TYPE/openwrt-23.05/v$VERSION/openwrt-$VERSION-rockchip-armv8-friendlyarm_nanopi-r5c-squashfs-sysupgrade.img.gz"
     }
   ],
   "friendlyarm,nanopi-r5s": [
     {
       "build_date": "$CURRENT_DATE",
       "sha256sum": "$SHA256_R5S",
-      "url": "https://github.com/sbwml/builder/releases/download/v$VERSION/openwrt-$VERSION-rockchip-armv8-friendlyarm_nanopi-r5s-squashfs-sysupgrade.img.gz"
+      "url": "https://r5s.cooluc.com/d/$BUILD_TYPE/openwrt-23.05/v$VERSION/openwrt-$VERSION-rockchip-armv8-friendlyarm_nanopi-r5s-squashfs-sysupgrade.img.gz"
     }
   ]
 }
