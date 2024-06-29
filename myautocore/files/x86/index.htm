@@ -79,12 +79,14 @@ end
 
 		local cpu_usage = (luci.sys.exec("expr 100 - $(top -n 1 | grep 'CPU:' | awk -F '%' '{print$4}' | awk -F ' ' '{print$2}')") or "6") .. "%"
 
-
+                local run_time = luci.sys.exec("awk '{print int($1/86400)\"天 \"int($1%86400/3600)\"时 \"int($1%86400%3600/60)\"分 \"int($1%60)\"秒\"}' /proc/uptime")
+		
 		local up_time = luci.sys.exec("/sbin/cntime")
 		local rv = {
 			cpuusage   = cpu_usage,
 			cpuwd    = cpu_wd,
-			ethinfo    = eth_info,
+			runtime = run_time,
+		        ethinfo    = eth_info,
 			userinfo    = user_info,
 			cpuspeed    = cpu_speed ,
 			uptime     = up_time,
@@ -729,7 +731,10 @@ end
 			if (e = document.getElementById('uptime'))
 				e.innerHTML = info.uptime;
 
-			if (e = document.getElementById('userinfo'))
+			if (e = document.getElementById('runtime'))
+				e.innerHTML = info.runtime;
+	
+	                if (e = document.getElementById('userinfo'))
 				e.innerHTML = info.userinfo;
 
 
@@ -813,7 +818,7 @@ end
 		</td></tr>
 		<tr><td width="33%"><%:Kernel Version%></td><td><%=unameinfo.release or "?"%></td></tr>
 		<tr><td width="33%"><%:Local Time%></td><td id="localtime">-</td></tr>
-		<tr><td width="33%"><%:Uptime%></td><td id="uptime">-</td></tr>
+		<tr><td width="33%"><%:Uptime%></td><td id="runtime">-</td></tr>
 		<tr><td width="33%"><%:Load Average%></td><td id="loadavg">-</td></tr>
                 <tr><td width="33%"><%:CPU usage (%)%></td><td id="cpuusage">-</td></tr>
 	        </td>
