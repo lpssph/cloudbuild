@@ -10,10 +10,14 @@
 	local util = require "luci.util"
 	local stat = require "luci.tools.status"
 	local ver = require "luci.version"
+	local uci = require("luci.model.uci").cursor()
 
 	local has_ipv6 = fs.access("/usr/sbin/ip6tables")
 	local has_dhcp = fs.access("/etc/config/dhcp")
+	local has_boot = fs.access("/sys/firmware/efi")
+
 	local has_wifi = ((fs.stat("/etc/config/wireless", "size") or 0) > 0)
+
 	local sysinfo = luci.util.ubus("system", "info") or { }
 	local boardinfo = luci.util.ubus("system", "board") or { }
 	local unameinfo = nixio.uname() or { }
@@ -32,7 +36,25 @@
 	}
 
 	local has_dsl = fs.access("/etc/init.d/dsl_control")
+local function online_data()
+	local rv = { }
+	local fd = util.execi('/usr/bin/awk \'BEGIN{while ((getline < "/tmp/dhcp.leases") > 0){a[$2]=$4;}while ((getline < "/proc/net/arp") > 0){if (!a[$4]){a[$4]="\?";}if (match($3,"0x[26]")){"ping -q -c 1 "$1" &";if (b[$4]){b[$4]=b[$4]"/"$1;}else{b[$4]=$1;}c[$4]=$6;}}while (("ip -6 neighbor show | grep -v fe80" | getline) > 0){if (b[$5]) {"ping -q -c 1 "$1" &";b[$5]=b[$5]"/"$1;}}for (mac in b){print(a[mac],b[mac],mac,c[mac]);}}\' ')
+	while true do
+		local ln = fd()
+		if ln == nil then break end
+		local name,ip,mac,dev = ln:match("^(%S+) (%S+) (%S+) (%S+)")
 
+		if mac and ip and name and dev then
+			rv[#rv+1] = {
+				hostname = name,
+				device  = dev,
+				macaddr  = mac,
+				ipaddr   = ip
+			}
+		end
+	end
+	return rv
+end
 	if luci.http.formvalue("status") == "1" then
 		local ntm = require "luci.model.network".init()
 		local wan = ntm:get_wannet()
@@ -45,25 +67,26 @@
 			"sysctl -n -e net.nf_conntrack_max net.ipv4.netfilter.ip_conntrack_max"
 		):match("%d+")) or 4096
 
+		eth_info = luci.sys.exec("/sbin/ethinfo")
 
-
-		local eth_info = luci.sys.exec("ethinfo")
-		local user_info = luci.sys.exec("cat /proc/net/arp | grep '0x2' | wc -l") or "0"
+		local cpu_speed = luci.sys.exec("/sbin/cpuspeed")
+		local user_info = luci.sys.exec("cat /proc/net/arp | grep 'br-lan' | grep '0x2' | wc -l") or "0"
 		local cpu_wd ="+".. (luci.sys.exec("/sbin/tempinfo")) .. "°C"
         if  cpu_wd == "+0°C" or cpu_wd == "+°C"   then
-		    cpu_wd= "+0°C （无温控或是虚拟机）"
+		    cpu_wd= "+0°C （无温控或虚拟机）"
 
        	end
 
 		local cpu_usage = (luci.sys.exec("expr 100 - $(top -n 1 | grep 'CPU:' | awk -F '%' '{print$4}' | awk -F ' ' '{print$2}')") or "6") .. "%"
 
 
-		local up_time = luci.sys.exec("cntime")
+		local up_time = luci.sys.exec("/sbin/cntime")
 		local rv = {
 			cpuusage   = cpu_usage,
 			cpuwd    = cpu_wd,
 			ethinfo    = eth_info,
 			userinfo    = user_info,
+			cpuspeed    = cpu_speed ,
 			uptime     = up_time,
 			localtime  = os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X"),
 			loadavg    = sysinfo.load or { 0, 0, 0 },
@@ -74,7 +97,8 @@
 			conncount  = conn_count,
 			leases     = stat.dhcp_leases(),
 			leases6    = stat.dhcp6_leases(),
-			wifinets   = stat.wifi_networks()
+			wifinets   = stat.wifi_networks(),
+			onlines   = online_data()
 		}
 
 		if wan then
@@ -122,11 +146,12 @@
 
 		return
 	end
+
 -%>
 
 <%+header%>
 
-<script type="text/javascript" src="<%=resource%>/cbi.js"></script>
+<script type="text/javascript" src="<%=resource%>/cbi.js?v=git-19.167.54478-71e2af4"></script>
 <script type="text/javascript">//<![CDATA[
 	function progressbar(v, m)
 	{
@@ -473,6 +498,37 @@
 			}
 			<% end %>
 
+			var ls = document.getElementById('online_status_table');
+			if (ls)
+			{
+				/* clear all rows */
+				while( ls.rows.length > 1 )
+					ls.rows[0].parentNode.deleteRow(1);
+
+				for( var i = 0; i < info.onlines.length; i++ )
+				{
+
+					var tr = ls.rows[0].parentNode.insertRow(-1);
+						tr.className = 'cbi-section-table-row cbi-rowstyle-' + ((i % 2) + 1);
+
+					tr.insertCell(-1).innerHTML = info.onlines[i].hostname ? info.onlines[i].hostname : '?';
+					tr.insertCell(-1).innerHTML = info.onlines[i].ipaddr.split("/").join("<br>");
+					tr.insertCell(-1).innerHTML = info.onlines[i].macaddr;
+					tr.insertCell(-1).innerHTML = info.onlines[i].device;
+				}
+ 
+				if( ls.rows.length == 1 )
+				{
+					var tr = ls.rows[0].parentNode.insertRow(-1);
+						tr.className = 'cbi-section-table-row';
+
+					var td = tr.insertCell(-1);
+						td.colSpan = 4;
+						td.innerHTML = '<em><br /><%:There is no one online now.%></em>';
+				}
+			}
+
+
 			<% if has_wifi then %>
 			var assoclist = [ ];
 
@@ -658,10 +714,9 @@
 				for (var i in ports)
 				{
 					tmp = tmp + String.format(
-							'<td style="text-align:center"><span style="line-height:25px">%s</span><br /><small><img src="<%=resource%>/icons/%s" /><br />%s<br />%s<br />%s<br />%s</small></td>',							ports[i].face,
+							'<td style="text-align:center"><span style="line-height:25px">%s</span><br /><small><img src="<%=resource%>/icons/%s" /><br />%s<br />%s<br />%s</small></td>',							ports[i].face,
 							ports[i].status ? 'port_up.png' : 'port_down.png',
-							ports[i].name,
-						    ports[i].duplex ? '<%:full-duplex%>' : '<%:half-duplex%>',
+							ports[i].duplex ? '<%:full-duplex%>' : '<%:half-duplex%>',
 							ports[i].speed,
 							ports[i].mac);
 				};
@@ -677,6 +732,9 @@
 			if (e = document.getElementById('userinfo'))
 				e.innerHTML = info.userinfo;
 
+
+			if (e = document.getElementById('cpuspeed'))
+				e.innerHTML = info.cpuspeed;
 
 			if (e = document.getElementById('cpuwd'))
 				e.innerHTML = info.cpuwd;
@@ -735,6 +793,8 @@
 
 		}
 	);
+	
+	
 //]]></script>
 
 <h2 name="content"><%:Status%></h2>
@@ -744,20 +804,19 @@
 
 	<table width="100%" cellspacing="10">
 		<tr><td width="33%"><%:Hostname%></td><td><%=luci.sys.hostname() or "?"%></td></tr>
-		<tr><td width="33%"><%:Model%></td><td><%=pcdata(boardinfo.model or "?")%></td></tr>
-		<tr><td width="33%"><%:CPU Info%></td><td><%=luci.sys.exec("/sbin/cpuinfo") or "?"%>  <%=luci.sys.exec("cat /etc/bench.log |awk -F '.' '{print $1}'") or " "%></td></tr>
-		<tr><td width="33%"><%:Architecture%></td><td><%=pcdata(boardinfo.release.target or "?")%></td></tr>
-		<tr><td width="33%"><%:CPU温度%></td><td id="cpuwd">-</td></tr>
-		<tr><td width="33%"><%:CPU负载%></td><td id="cpuusage">-</td></tr>
-                <tr><td width="33%"><%:运行内存%></td><td > <%=luci.sys.exec("free -m  | grep Mem | awk '{print $2/1024}'|  awk -F '.' '{print $1}'").."MB"%></td></tr>
-
-                <tr><td width="33%"><%:Kernel Version%></td><td><%=unameinfo.release or "?"%></td></tr>
+		<tr><td width="33%"><%:Model%></td><td><%=pcdata(boardinfo.model or "?")%> <%=luci.sys.exec("cat /etc/bench.log") or " "%></td></tr>
+	        <tr><td width="33%"><%:实时主频%></td><td id="cpuspeed">-</td></tr>
+		<tr><td width="33%"><%:内核温度%></td><td id="cpuwd">-</td></tr>
+		<tr><td width="33%"><%:Firmware Version%></td><td>
+			<%=pcdata(ver.distname)%> <%=pcdata(ver.distversion)%> /
+		        <%=pcdata(ver.luciname)%> (<%=pcdata(ver.luciversion)%>)
+		</td></tr>
+		<tr><td width="33%"><%:Kernel Version%></td><td><%=unameinfo.release or "?"%></td></tr>
 		<tr><td width="33%"><%:Local Time%></td><td id="localtime">-</td></tr>
 		<tr><td width="33%"><%:Uptime%></td><td id="uptime">-</td></tr>
 		<tr><td width="33%"><%:Load Average%></td><td id="loadavg">-</td></tr>
-                <tr><td width="33%"><%:Firmware Version%></td><td>
-			<%=pcdata(ver.distname)%> <%=pcdata(ver.distversion)%>
-		</td></tr>
+                <tr><td width="33%"><%:CPU usage (%)%></td><td id="cpuusage">-</td></tr>
+	        </td>
 	</tr>
 </table>
 </fieldset>
@@ -781,12 +840,15 @@
 	</table>
 </fieldset>
 <% end %>
+
 <fieldset class="cbi-section">
 	<legend><%:Interfaces%></legend>
 
 	<table width="100%" cellspacing="10" id="ethinfo">
 	</table>
 </fieldset>
+
+
 <fieldset class="cbi-section">
 	<legend><%:Network%></legend>
 
@@ -805,8 +867,25 @@
 			</tr></table>
 		</td></tr>
 		<% end %>
-		<tr><td width="33%"><%:Online Users%></td><td id="userinfo">0</td></tr>
 		<tr><td width="33%"><%:Active Connections%></td><td id="conns">-</td></tr>
+	</table>
+</fieldset>
+
+<fieldset class="cbi-section">
+	<table width="100%" cellspacing="10" id="ethinfo">
+		<tr><td width="33%"><%:Online Users%></td><td id="userinfo">0</td></tr>
+	</table>
+
+	<table class="cbi-section-table" id="online_status_table">
+		<tr class="cbi-section-table-titles">
+			<th class="cbi-section-table-cell"><%:Hostname%></th>
+			<th class="cbi-section-table-cell"><%:IPv4-Address%></th>
+			<th class="cbi-section-table-cell"><%:MAC-Address%></th>
+			<th class="cbi-section-table-cell"><%:Interface%></th>
+		</tr>
+		<tr class="cbi-section-table-row">
+			<td colspan="4"><em><br /><%:Collecting data...%></em></td>
+		</tr>
 	</table>
 </fieldset>
 
@@ -827,6 +906,7 @@
 	</table>
 </fieldset>
 
+
 <% if has_ipv6 then %>
 <fieldset class="cbi-section" style="display:none">
 	<legend><%:DHCPv6 Leases%></legend>
@@ -845,6 +925,7 @@
 </fieldset>
 <% end %>
 <% end %>
+
 
 <% if has_dsl then %>
 <fieldset class="cbi-section">
